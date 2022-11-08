@@ -44,7 +44,7 @@ class Process():
         goal_z = goal_z * DEG2RAD
 
         if goal_x != 0:
-            diff_encoder = abs(goal_x) / ( 0.207 / 4096 ) #0.314
+            diff_encoder = abs(goal_x) / ( 0.314 / 4096 )
             if moving == False:
                 saved_tick = self.current_tick
                 moving = True
@@ -57,7 +57,7 @@ class Process():
                 r.sleep()
 
         if goal_y != 0:
-            diff_encoder = abs(goal_y) / ( 0.207 / 4096 ) #0.314
+            diff_encoder = abs(goal_y) / ( 0.314 / 4096 )
             if moving == False:
                 saved_tick = self.current_tick
                 moving = True
@@ -70,15 +70,15 @@ class Process():
                 r.sleep()
 
         if goal_z != 0:
-            diff_encoder = abs( goal_z * 0.1435 ) / ( 0.207 / 4096 ) #0.1435 0.314
+            diff_encoder = abs( goal_z * 0.23 ) / ( 0.207 / 4096 ) 
             if moving == False:
                 saved_tick = self.current_tick
                 moving = True
             while abs(saved_tick.position[0] - self.current_tick.position[0]) * RAD2TICK <= diff_encoder:
                 if goal_z > 0:
-                    move_cmd.angular.z = -0.5
-                else:
                     move_cmd.angular.z = 0.5
+                else:
+                    move_cmd.angular.z = -0.5
                 self.cmd_vel.publish(move_cmd)
                 r.sleep()
 
